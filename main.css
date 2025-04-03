@@ -61,3 +61,17 @@ a:active {
     color: black;
     opacity: 0.3;
 }
+
+div.menu {
+    border: 1px solid;
+    border-radius: 5px;
+    width: 300px;
+    margin: 0 auto;
+    background-color: lightpink;
+    box-shadow: 10px 10px 5px #0002;
+}
+
+div.menu:hover {
+    background-color: #ff6565;
+    box-shadow: 0 0 15px #00000030;
+}
