@@ -4,6 +4,7 @@ body {
     font-family: Arial;
     margin: 0px;
 }
+
 main {
     background-color: lightyellow;
     color: brown;
@@ -13,6 +14,7 @@ main {
     border-radius: 9px;
     font-size: 14pt;
 }
+
 header {
     background-color: bisque;
     color: black;
@@ -20,6 +22,7 @@ header {
     font-size: 14pt;
     padding: 13px;
 }
+
 footer {
     background-color: bisque;
     color: black;
@@ -29,6 +32,30 @@ footer {
     font-style: italic;
     text-align: right;
 }
+
 a {
+    color: brown;
     text-decoration: none;
+}
+
+a:link {
+    color: green;
+    text-decoration: none;
+}
+
+a:visited {
+    color: lightblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+    background-color: lightblue;
+    box-shadow: 3px 3px 1px #0002;
+}
+
+a:active {
+    color: black;
+    opacity: 0.3;
 }
