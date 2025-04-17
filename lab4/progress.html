@@ -12,28 +12,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-  
-      .progress-container {
-        width: 360px;             
+    }
+
+    .progress-container {
+        width: 400px;             
         padding: 30px 20px;
         background: #fff;
         border: 2px solid #800000;
         box-sizing: border-box;
         text-align: center;
-      }
-  
-      .progress-container .title {
-        margin: 0 0 20px;
+        position: relative; 
+    }
+
+    .progress-container .title {
+        margin: 0 0 40px;
         font-size: 28px;
         font-weight: bold;
         color: #800000;
-      }
-  
-      .progress-container .btn {
+    }
+
+    .progress-container .btn {
         display: inline-block;
         padding: 12px 40px;
-        margin-bottom: 25px;
+        margin-top: 30px; 
         font-size: 18px;
         color: #fff;
         background: #00008B;
@@ -42,36 +43,44 @@
         cursor: pointer;
         box-shadow: 4px 4px 12px #0002;
         transition: box-shadow 0.25s;
-      }
-      .progress-container .btn:hover {
-        box-shadow: 6px 6px 16px #0002;
-      }
-      .progress-container .btn:active {
-        box-shadow: none;
-      }
+        user-select: none;
+        position: relative; 
+        
+    }
 
-      .progress-container .progress-bar {
-        position: relative;
-        width: 100%;
+    .progress-container .btn:hover {
+        box-shadow: 6px 6px 16px #0002;
+    }
+
+    .progress-container .btn:active {
+        box-shadow: none;
+    }
+
+    .progress-container .progress-bar {
+        position: absolute; 
+        top: 85px; 
+        align-items: center;
+        width: 90%;
         height: 28px;
         border: 2px solid #800000;
         border-radius: 4px;
         overflow: hidden;
-      }
-  
-      .progress-container .progress-fill {
+        background: transparent;
+    }
+
+    .progress-container .progress-fill {
         width: 0;
         height: 100%;
         background: #800000;
         transition: width 5s linear;
-      }
-  
-      .progress-container .btn:active
+    }
+
+    .progress-container .btn:active
         + .progress-bar
         .progress-fill {
         width: 100%;
-      }
-      </style>
+    }
+    </style>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../favicon-32x32.png">
     <link rel="shortcut icon" href="../favicon-16x16.png">
@@ -87,9 +96,10 @@
             <div class="title">Степень прогресса</div>
             <button class="btn">Нажмите и удерживайте</button>
             <div class="progress-bar">
-              <div class="progress-fill"></div>
+                <div class="progress-fill"></div>
             </div>
         </div>
+    
     </main>
 
     <footer>
