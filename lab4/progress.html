@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <style>
+    main {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .progress-container {
+        width: 360px;             
+        padding: 30px 20px;
+        background: #fff;
+        border: 2px solid #800000;
+        box-sizing: border-box;
+        text-align: center;
+      }
+  
+      .progress-container .title {
+        margin: 0 0 20px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #800000;
+      }
+  
+      .progress-container .btn {
+        display: inline-block;
+        padding: 12px 40px;
+        margin-bottom: 25px;
+        font-size: 18px;
+        color: #fff;
+        background: #00008B;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 4px 4px 12px #0002;
+        transition: box-shadow 0.25s;
+      }
+      .progress-container .btn:hover {
+        box-shadow: 6px 6px 16px #0002;
+      }
+      .progress-container .btn:active {
+        box-shadow: none;
+      }
+
+      .progress-container .progress-bar {
+        position: relative;
+        width: 100%;
+        height: 28px;
+        border: 2px solid #800000;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+  
+      .progress-container .progress-fill {
+        width: 0;
+        height: 100%;
+        background: #800000;
+        transition: width 5s linear;
+      }
+  
+      .progress-container .btn:active
+        + .progress-bar
+        .progress-fill {
+        width: 100%;
+      }
+      </style>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 4
+        <hr>
+    </header>
+
+    <main>
+        <div class="progress-container">
+            <div class="title">Степень прогресса</div>
+            <button class="btn">Нажмите и удерживайте</button>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
