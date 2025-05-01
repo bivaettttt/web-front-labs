@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        main {
+            text-align: center;
+            padding: 10px;
+        }
+        img {
+            width: 850px;
+        }
+        #info {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #help {
+            margin-top: 20px;
+            font-size: 14px;
+            font-style: italic;
+            color: black;
+        }
+    </style>
+    <script>
+        function changeFilter() {
+            let img = document.getElementById("image");
+            let info = document.getElementById("info");
+            let x = event.offsetX;
+            let w = img.offsetWidth;
+            let ratio = x / w;
+
+            let filter = "hue-rotate";
+            let value = Math.round(ratio * 360) + "deg";
+
+            if (event.ctrlKey) {
+                filter = "saturate";
+                value = Math.round(ratio * 500) + "%";
+            } else if (event.altKey) {
+                filter = "contrast";
+                value = Math.round(ratio * 500) + "%";
+            } else if (event.shiftKey) {
+                filter = "invert";
+                value = Math.round(ratio * 100) + "%";
+            }
+
+            img.style.filter = filter + "(" + value + ")";
+            info.innerText = "Фильтр: " + filter + "(" + value + ")";
+        }
+        function resetFilter() {
+            let img = document.getElementById("image");
+            let info = document.getElementById("info");
+            img.style.filter = "none";
+            info.innerText = "Фильтр: нет";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 5
+        <hr>
+    </header>
+
+    <main>
+        <main>
+            <img src="p2.jpg" id="image" onmousemove="changeFilter()" onmouseleave="resetFilter()">
+            <div id="info">Фильтр: hue-rotate(0deg)</div>
+            <div id="help">
+                Наведите мышь на изображение. Чем правее — тем сильнее эффект.<br>
+                Зажмите Ctrl — saturate, Alt — contrast, Shift — invert.
+            </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
