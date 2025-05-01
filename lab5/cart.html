@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        .item {
+          margin: 10px 0;
+        }
+        .result {
+          margin-top: 20px;
+          font-weight: bold;
+          font-size: 18px;
+        }
+        input[type="number"] {
+          width: 70px;
+          border-radius: 3px;
+        }
+        .cart-buttons button {
+          margin-right: 10px;
+          padding: 5px 15px;
+          font-weight: bold;
+        }
+    </style>
+    <script>
+        function calculateTotal() {
+            let item1 = document.getElementById("item1");
+            let item2 = document.getElementById("item2");
+            let item3 = document.getElementById("item3");
+            let item4 = document.getElementById("item4");
+            let item5 = document.getElementById("item5");
+
+            let a = parseInt(item1.value) || 0;
+            let b = parseInt(item2.value) || 0;
+            let c = parseInt(item3.value) || 0;
+            let d = parseInt(item4.value) || 0;
+            let e = parseInt(item5.value) || 0;
+
+            let result = a * 110.99 + b * 250.00 + c * 89.99 + d * 149.99 + e * 89.99;
+            
+            let resultBlock = document.getElementById("result");
+            resultBlock.innerHTML = "Итого к оплате: " + result + " ₽";
+        }
+
+        function clearCart() {
+            document.getElementById("item1").value = "";
+            document.getElementById("item2").value = "";
+            document.getElementById("item3").value = "";
+            document.getElementById("item4").value = "";
+            document.getElementById("item5").value = "";
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 5
+        <hr>
+    </header>
+
+    <main>
+        <div style="border: 2px solid; background: aqua; padding: 8px; max-width: 400px; margin: 0 auto; border-radius: 10px;">
+            <h2>Корзина товаров</h2>
+            <div class="item">Энергетик Burn (110.99 ₽): <input type="number" min="0" id="item1" placeholder="кол-во"></div>
+            <div class="item">Творог Простоквашино (250.00 ₽): <input type="number" min="0" id="item2" placeholder="кол-во"></div>
+            <div class="item">Чай Lipton (89.99 ₽):  <input type="number" min="0" id="item3" placeholder="кол-во"></div>
+            <div class="item">Хлеб Harris (149.99 ₽): <input type="number" min="0" id="item4" placeholder="кол-во"></div>
+            <div class="item">Молоко Простоквашино (89.99 ₽): <input type="number" min="0" id="item5" placeholder="кол-во"></div>
+
+            <div class="cart-buttons">
+                <button onclick="calculateTotal()">Рассчитать</button>
+                <button onclick="clearCart()">Очистить</button>
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
