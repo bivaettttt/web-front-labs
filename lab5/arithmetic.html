@@ -136,6 +136,16 @@
             let message = 'Здрасте, это моя страница!\n«Завтра рано вставать, встану послезавтра»';
             alert(message);
         }
+        function changeOutput(buttonNum, backColor, textColor, border, borderRadius, width, height) {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Нажата кнопка ' + buttonNum;
+            output.style.backgroundColor = backColor;
+            output.style.color = textColor;
+            output.style.border = border;
+            output.style.borderRadius = borderRadius;
+            output.style.width = width;
+            output.style.height = height;
+        }
     </script>
     <style>
         header {
@@ -152,9 +162,17 @@
             padding: 15px;
             margin: 8px;
             background: aqua;
-            border: 2px solid brown; 
+            border: 2px solid; 
             box-shadow: 4px 4px 5px #0002;
             border-radius: 8px;
+        }
+        #output {
+            background: aqua;
+            border: 1px solid;
+            padding: 15px;
+            text-align: center;
+            width: 300px;
+            height: 40px;
         }
     </style>
 </head>
@@ -178,6 +196,15 @@
         <div class="message" onclick="showVozv()">Возведение в степень</div>
 
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
+
+        <div>
+            <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow', '5px dotted', '10px', '350px', '60px')">
+            <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'black', 'lime', '10px dashed', '20px', '370px', '80px')">
+            <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'white', 'black', '15px double', '30px', '390px', '100px')">
+            <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'pink', 'purple', '20px groove', '40px', '410px', '120px')">
+        </div>
+
+        <div id="output"></div>
     </main>
 
     <footer ondblclick="showMessage()">
