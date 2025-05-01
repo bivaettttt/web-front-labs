@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            font-size: 25pt;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            position: absolute;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        #container {
+            position: relative;
+            height: 500px;
+        }
+
+        input[type="button"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function hideCircle(id) {
+            let circle = document.getElementById(id);
+            circle.style.opacity = "0";
+            circle.style.width = "0px";
+            circle.style.height = "0px";
+            circle.style.lineHeight = "0px";
+            circle.style.margin = "0px";
+        }
+
+        function resetCircle(id) {
+            let circle = document.getElementById(id);
+            circle.style.opacity = "";
+            circle.style.width = "100px";
+            circle.style.height = "100px";
+            circle.style.lineHeight = "100px";
+            circle.style.margin = "10px";
+        }
+
+        function resetCircles() {
+            resetCircle("c1");
+            resetCircle("c2");
+            resetCircle("c3");
+            resetCircle("c4");
+            resetCircle("c5");
+            resetCircle("c6");
+            resetCircle("c7");
+            resetCircle("c8");
+            resetCircle("c9");
+            resetCircle("c10");
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 5
+        <hr>
+    </header>
+
+    <main>
+        <div id="container">
+            <div id="c1" class="circle" style="background-color: silver; top: 70px; left: 1100px;" onclick="hideCircle('c1')">1</div>
+            <div id="c2" class="circle" style="background-color: aqua; top: 130px; left: 160px;" onclick="hideCircle('c2')">2</div>
+            <div id="c3" class="circle" style="background-color: red; top: 15px; left: 10px;" onclick="hideCircle('c3')">3</div>
+            <div id="c4" class="circle" style="background-color: yellow; top: 500px; left: 300px;" onclick="hideCircle('c4')">4</div>
+            <div id="c5" class="circle" style="background-color: lime; top: 344px; left: 753px;" onclick="hideCircle('c5')">5</div>
+            <div id="c6" class="circle" style="background-color: blue; top: 400px; left: 400px;" onclick="hideCircle('c6')">6</div>
+            <div id="c7" class="circle" style="background-color: orange; top: 430px; left: 1200px;" onclick="hideCircle('c7')">7</div>
+            <div id="c8" class="circle" style="background-color: skyblue; top: 230px; left: 320px;" onclick="hideCircle('c8')">8</div>
+            <div id="c9" class="circle" style="background-color: pink; top: 40px; left: 600px;" onclick="hideCircle('c9')">9</div>
+            <div id="c10" class="circle" style="background-color: purple; top: 432px; left: 880px;" onclick="hideCircle('c10')">10</div>
+        </div>
+
+        <input type="button" value="Сбросить круги" onclick="resetCircles()">
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
