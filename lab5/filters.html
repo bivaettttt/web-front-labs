@@ -13,7 +13,7 @@
             max-width: 555px;
         }
         input[type="range"] {
-            width: 444px;
+            width: 380px;
         }
     </style>
     <script>
@@ -51,6 +51,11 @@
             let value = document.getElementById("saturateValue").value + "%";
             document.getElementById("saturateOutput").innerText = value;
             document.getElementById("saturateImage").style.filter = "saturate(" + value + ")";
+        }
+        function sepiaChange() {
+            let value = document.getElementById("sepiaValue").value + "%";
+            document.getElementById("sepiaOutput").innerText = value;
+            document.getElementById("sepiaImage").style.filter = "sepia(" + value + ")";
         }
     </script>
 </head>
@@ -120,9 +125,17 @@
             <input type="range" id="saturateValue" min="0" max="500" value="100" onchange="saturateChange()">
             <span id="saturateOutput">100%</span>
         </div>
-
         <div>
             <img src="boals.jpg" id="saturateImage">
+        </div>
+
+        <div>
+            Фильтр sepia:
+            <input type="range" id="sepiaValue" min="0" max="100" value="0" onchange="sepiaChange()">
+            <span id="sepiaOutput">0%</span>
+        </div>
+        <div>
+            <img src="boals.jpg" id="sepiaImage">
         </div>
     </main>
 
