@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        #block {
+            width: 300px;
+            height: 300px;
+            border: 2px solid;
+            background-color: aqua;
+            cursor: crosshair;
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        function showCoords() {
+            let x = this.event.x;
+            let y = this.event.y;
+            let div = document.getElementById('block');
+            let text = ''
+            if (event.ctrlKey) {
+                div.style.color = 'red';
+                text += "<br>Нажата клавиша Ctrl";
+            }
+            else {
+                div.style.color = 'black';
+            }
+
+            if (event.altKey) {
+                div.style.border = '10px groove pink';
+                text += "<br>Нажата клавиша Alt";
+            } else {
+                div.style.border = '2px solid black';
+            }
+
+            if (event.shiftKey) {
+                div.style.backgroundColor = 'purple';
+                text += "<br>Нажата клавиша Shift";
+            } else {
+                div.style.backgroundColor = 'bisque';
+            }
+            div.innerHTML = '<b>x</b> = ' + x + 'px<br><b>y</b> = ' + y + 'px' + text;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 5
+        <hr>
+    </header>
+
+    <main>
+        <div id ="block" onmousemove="showCoords()"> </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
