@@ -47,6 +47,11 @@
             document.getElementById("invertOutput").innerText = value;
             document.getElementById("invertImage").style.filter = "invert(" + value + ")";
         }
+        function saturateChange() {
+            let value = document.getElementById("saturateValue").value + "%";
+            document.getElementById("saturateOutput").innerText = value;
+            document.getElementById("saturateImage").style.filter = "saturate(" + value + ")";
+        }
     </script>
 </head>
 <body>
@@ -108,6 +113,16 @@
         </div>
         <div>
             <img src="boals.jpg" id="invertImage">
+        </div>
+
+        <div>
+            Фильтр saturate:
+            <input type="range" id="saturateValue" min="0" max="500" value="100" onchange="saturateChange()">
+            <span id="saturateOutput">100%</span>
+        </div>
+
+        <div>
+            <img src="boals.jpg" id="saturateImage">
         </div>
     </main>
 
