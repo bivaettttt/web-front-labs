@@ -9,6 +9,56 @@
     <link rel="shortcut icon" href="../favicon-32x32.png">
     <link rel="shortcut icon" href="../favicon-16x16.png">
     <script>
+        function showVozv() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
+            if(a == 0 & b == 0) {
+                alert('Одна ошибка и ты ошибся')
+                inputA.focus();
+                inputA.select();
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                return;
+            }
+
+            inputA.style.color = '';
+            inputA.style.borderColor = '';
+            inputB.style.color = '';
+            inputB.style.borderColor = '';
+
+            if(isNaN(a)) {
+                alert('Введите числовое значение в первое поле');
+                inputA.focus();
+                inputA.select();
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                return;
+            }
+
+            inputA.style.color = '';
+            inputA.style.borderColor = '';
+
+            if(isNaN(b)) {
+                alert('Введите числовое значение во второе поле');
+                inputB.focus();
+                inputB.select();
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                return;
+            }
+
+            inputB.style.color = '';
+            inputB.style.borderColor = '';
+
+            let result = a ** b;
+            alert('Число ' + a + ' в степени ' + b + ' равно ' + result);
+        }
+
         function showDiv() {
             let inputA = document.getElementById('numberA');
             let inputB = document.getElementById('numberB');
@@ -124,6 +174,8 @@
         <div class="message" onclick="showPr()">Найти произведение чисел</div>
 
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+
+        <div class="message" onclick="showVozv()">Возведение в степень</div>
 
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
