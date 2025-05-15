@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        #current-date {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #locale-dates {
+            margin-top: 10px;
+            font-size: 14pt;
+        }
+    </style>
+    <script>
+        function showDate() {
+            let out = document.getElementById('current-date')
+            let today = new Date();
+            out.innerHTML = today.toLocaleString('ru-RU');
+
+            document.getElementById('locale-dates').innerHTML =
+                "Дата и время для русской локали: " + today.toLocaleString('ru-RU') + "<br>" +
+                "Дата и время для локали США: " + today.toLocaleString('en-US') + "<br>" +
+                "Дата и время для локали Испании: " + today.toLocaleString('es-ES') + "<br>" +
+                "Дата и время для локали Франции: " + today.toLocaleString('fr-FR') + "<br>" +
+                "Дата и время для локали Италии: " + today.toLocaleString('it-IT') + "<br>" +
+                "Дата и время для локали Турции: " + today.toLocaleString('tr-TR') + "<br>";
+        }
+    </script>
+</head>
+<body onload="showDate()">
+    <header>
+        НГТУ, ФБ, Лабораторная 6
+        <hr>
+    </header>
+
+    <main>
+        <h2>Дата и Время</h2>
+        <div id="current-date"></div>  
+        <div id="locale-dates"></div> 
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
