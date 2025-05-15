@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        #info {
+            font-style: italic;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 14pt;
+            background-color: aqua;
+            border: 2px solid;
+            border-radius: 5px;
+            width: 500px;
+        }
+        #day-input {
+            width: 50px;
+            color: brown;
+            background-color: pink;
+            border: 1px solid brown;
+            border-radius: 5px;
+            margin-top: 10px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        #diagram {
+            background-color: white;
+            display: flex;
+            align-items: flex-end;
+            height: 500px;
+            gap: 2px;
+            padding: 10px;
+            border: 2px solid;
+            margin: 10px 0;
+        }
+        .day-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .max-bar {
+            background-color: orange;
+            width: 80%;
+        }
+        .min-bar {
+            background-color: aqua;
+            width: 80%;
+            margin-top: 2px;
+        }
+        .highlight .max-bar {
+            background-color: red; 
+        }
+        .highlight .min-bar {
+            background-color: blue; 
+        }
+    </style>
+    <script>
+        let temps = [];
+        let prevHighlight = null;
+
+        function generateTemps() {
+            for(let i = 0; i < 30; i++) {
+                let max = Math.floor(Math.random() * 36 + 10); 
+                let min = Math.floor(Math.random() * 26);      
+                
+                if(min > max) {
+                    [max, min] = [min, max]; 
+                }
+                
+                temps[i] = { max, min };
+            }
+        }
+        function setBars() {
+            const maxBars = document.getElementsByClassName('max-bar');
+            const minBars = document.getElementsByClassName('min-bar');
+            
+            for(let i = 0; i < 30; i++) {
+                maxBars[i].style.height = Math.abs(temps[i].max * 6) + 'px';
+                minBars[i].style.height = Math.abs(temps[i].min * 6) + 'px';
+            }
+        }
+        function showDay() {
+            const day = parseInt(document.getElementById('day-input').value) - 1;
+            const info = document.getElementById('info');
+            
+            if(day < 0 || day > 29 || isNaN(day)) {
+                info.innerHTML = "Введите число от 1 до 30";
+                return;
+            }
+
+            if(prevHighlight) {
+                prevHighlight.classList.remove('highlight');
+            }
+
+            const column = document.getElementsByClassName('day-column')[day];
+            column.classList.add('highlight');
+            prevHighlight = column;
+
+            info.innerHTML = 
+                'День ' + (day+1) + ': ' +
+                'Максимальная температура за день: ' + temps[day].max + '°C, ' +
+                'Минимальная температура за день: ' + temps[day].min + '°C';
+        }
+    </script>
+</head>
+<body onload="generateTemps(), setBars()">
+    <header>
+        НГТУ, ФБ, Лабораторная 6
+        <hr>
+    </header>
+
+    <main>
+        <h2>Температура за месяц</h2>
+        <div id="diagram">
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>1</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>2</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>3</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>4</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>5</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>6</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>7</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>8</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>9</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>10</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>11</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>12</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>13</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>14</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>15</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>16</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>17</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>18</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>19</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>20</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>21</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>22</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>23</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>24</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>25</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>26</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>27</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>28</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>29</small></div>
+            <div class="day-column"><div class="max-bar"></div><div class="min-bar"></div><small>30</small></div>
+        </div>
+
+        <input type="number" id="day-input" placeholder="День" min="1" max="30" oninput="showDay()">
+        <div id="info"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
