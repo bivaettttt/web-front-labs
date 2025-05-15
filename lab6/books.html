@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        .book {
+            border: 1px solid;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .bestseller {
+            border-color: red;
+            background-color: aqua;
+            font-weight: bold;
+        }
+        .out-of-stock {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+    <script src="books.js" defer></script>
+    <script>
+        function showBooks() {
+            let bookList = document.getElementById('bookList');
+
+            for (let i = 0; i < books.length; i++) {
+                let book = books[i];
+                let classes = "book";
+
+                if (book.bestseller) {
+                    classes = classes + " bestseller";
+                }
+
+                if (book.inStock == false) {
+                    classes = classes + " out-of-stock";
+                }
+
+                let availabilityText = "";
+
+                if (book.inStock == false) {
+                    availabilityText = "<br><em>Книга отсутствует на складе</em>";
+                }
+
+                bookList.innerHTML = bookList.innerHTML +
+                    '<div class="' + classes + '">' +
+                    '<b>' + book.author + '.</b> ' +
+                    '<i>' + book.name + '</i> &mdash; ' + book.publicationYear + '<br>' +
+                    'Цена: ' + book.price + ' руб.' +
+                    availabilityText +
+                    '</div>';
+            }
+        }
+    </script>
+</head>
+<body onload="showBooks()">
+    <header>
+        НГТУ, ФБ, Лабораторная 6
+        <hr>
+    </header>
+
+    <main>
+        <h1>Список книг</h1>
+        <div id="bookList">
+        </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
