@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        button {
+            font-size: 14pt;
+            padding: 10px;
+            width: 250px;
+            margin: 10px;
+            background-color: darksalmon;
+            border: 1px solid brown;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            text-align: center;
+            border: 1px solid brown; 
+            background: white;
+            width: 350px;
+        }
+    </style>
+    <script src="quotes-data.js"></script>
+    <script>
+        function showRate() {
+            let table = document.getElementById('rate-table');
+            let thead = table.createTHead();
+            let headRow = thead.insertRow();
+            ['Дата', 'Цена, руб.', 'Разница'].forEach(text => {
+                let th = document.createElement('th');
+                th.innerText = text;
+                headRow.appendChild(th);
+            });
+            let tbody = document.createElement('tbody');
+            for(let i = 0; i < rate.length; i++) {
+                let tr = document.createElement('tr');
+
+                let tdDate = document.createElement('td');
+                tdDate.innerText = date[i];
+                tr.appendChild(tdDate);
+
+                let tdPrice = document.createElement('td');
+                tdPrice.innerText = rate[i].toFixed(4);
+                tr.appendChild(tdPrice);
+
+                let tdDiff = document.createElement('td');
+                if (i===0) {
+                    tdDiff.innerText = '—';
+                } else {
+                    const diff = (rate[i] - rate[i - 1]).toFixed(4);
+                    tdDiff.innerText = diff;
+                    if (diff > 0) tdDiff.style.color = 'green';
+                    else if (diff < 0) tdDiff.style.color = 'red';
+                }
+                tr.appendChild(tdDiff);
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+
+            let sum = 0;
+            for(let i = 0; i < rate.length; i++) {
+                sum += rate[i];
+            }
+            let average = sum / rate.length;
+            average = average.toFixed(2);
+
+            let min = Math.min(...rate).toFixed(2);
+            let max = Math.max(...rate).toFixed(2);
+
+            detail = document.getElementById('detail');
+            detail.innerText = `
+                Среднее значение: ${average} руб.
+                Минимальное значение: ${min} руб.
+                Максимальное значение: ${max} руб.
+            `;
+
+            btn = document.getElementById('btn');
+            btn.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 7
+        <hr>
+    </header>
+
+    <main>
+        <h2 style="text-align:center">Котировки акций компании "Объединенная авиастроительная корпорация"</h2>
+
+        <button onclick="showRate()" id="btn">Курс акций UNAC</button>
+        
+        <table border="1" id="rate-table"></table>
+        <div id="detail"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
