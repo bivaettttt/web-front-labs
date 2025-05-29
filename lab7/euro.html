@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        button {
+            font-size: 14pt;
+            padding: 10px;
+            width: 220px;
+            margin: 20px auto;
+            display: block;
+            background-color: darksalmon;
+            border: 1px solid brown;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            }
+
+        #rate-container {
+            max-width: 450px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .rate-box {
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .rate-box h3 {
+            margin-top: 0;
+            font-size: 18pt;
+        }
+        .rate-box p {
+            margin: 8px 0;
+            font-size: 12pt;
+        }
+    </style>
+    <script>
+        function getEuroExchangeRate() {
+            const url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+            fetch(url)
+                .then(response => response.json())
+                .then(json => {
+                    const eur = json.Valute.EUR;
+                    const current = eur.Value;
+                    const previous = eur.Previous;
+
+                    const formatDate = iso => {
+                        const d = new Date(iso);
+                        const dd = String(d.getDate()).padStart(2, '0');
+                        const mm = String(d.getMonth()+1).padStart(2, '0');
+                        const yyyy = d.getFullYear();
+                        return `${dd}.${mm}.${yyyy}`;
+                    };
+                    const dateNow = formatDate(json.Date);
+                    const datePrev = formatDate(json.PreviousDate);
+
+                    const diff = +(current - previous).toFixed(4);
+                    let diffText, diffColor;
+                    if (diff > 0) {
+                        diffText = `Курс евро вырос на ${diff} руб.`;
+                        diffColor = 'green';
+                    } else if (diff < 0) {
+                        diffText = `Курс евро упал на ${Math.abs(diff)} руб.`;
+                        diffColor = 'red';
+                    } else {
+                        diffText = `Курс евро не изменился.`;
+                        diffColor = 'black';
+                    }
+
+                    const container = document.getElementById('rate-container');
+                    container.innerHTML = `
+                        <div class="rate-box">
+                            <h3>Текущий курс евро</h3>
+                            <p><strong>Дата запроса:</strong> ${dateNow}</p>
+                            <p><strong>Курс на текущую дату:</strong> ${current.toFixed(4)} руб.</p>
+                            <p><strong>Курс на предыдущую дату (${datePrev}):</strong> ${previous.toFixed(4)} руб.</p>
+                            <p id="diff" style="color: ${diffColor};"><strong>Разница:</strong> ${diffText}</p>
+                            <p class="source">
+                                Данные: <a href="https://www.cbr-xml-daily.ru/" target="_blank" rel="noopener noreferrer">
+                                cbr-xml-daily.ru
+                                </a><br>
+                                (см. раздел «Условия использования»)
+                            </p>
+                        </div>
+                    `;
+
+                    document.querySelector('button').style.display = 'none';
+                })
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 7
+        <hr>
+    </header>
+
+    <main>
+        <button onclick="getEuroExchangeRate()">Получить курс евро</button>
+        <div id="rate-container"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
