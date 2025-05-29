@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        hr { 
+            border-color: #aac; 
+        }
+        .chart-container {
+            background: #fff;
+            padding: 15px;
+            margin: 30px auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 90%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .bar-wrapper {
+            display: inline-block;
+            width: 28px;
+            margin: 0 3px;
+            vertical-align: bottom;
+            position: relative;
+        }
+        .bar-temp {
+            background: linear-gradient(180deg, #ffecd2, #ff8300);
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            transition: transform 0.2s ease;
+        }
+        .bar-hum {
+            background: linear-gradient(180deg, #d0e8ff, #0099ff);
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            transition: transform 0.2s ease;
+        }
+        .bar-wrapper:hover .bar-temp,
+        .bar-wrapper:hover .bar-hum {
+            transform: scaleY(1.1);
+        }
+        .data-label {
+            font-size: 10px;
+            margin: 4px 0;
+            font-weight: bold;
+            color: #444;
+        }
+        .axis-label {
+            font-size: 11px;
+            margin-top: 10px;
+            transform: rotate(-45deg);
+            transform-origin: top left;
+            display: block;
+            color: #666;
+        }
+        .current-values {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            padding: 10px;
+            background: #fff;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+        }
+        button {
+            font-size: 14pt;
+            padding: 10px;
+            width: 220px;
+            margin: 20px auto;
+            display: block;
+            background-color: darksalmon;
+            border: 1px solid brown;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        h2 {
+            margin: 0 0 10px;
+            color: #222;
+            font-weight: normal;
+        }
+    </style>
+    <script>
+        function showHistogram() {
+            const url = [
+                'https://api.open-meteo.com/v1/forecast',
+                '?latitude=55.0415',
+                '&longitude=82.9346',
+                '&hourly=temperature_2m,relativehumidity_2m',
+                '&past_days=1',
+                '&forecast_days=1',
+                '&current_weather=true',
+                '&timezone=Asia%2FBangkok'
+            ].join('');
+
+            fetch(url)
+                .then(resp => resp.json())
+                .then(json => {
+                const times = json.hourly.time;
+                const temps = json.hourly.temperature_2m;
+                const hums  = json.hourly.relativehumidity_2m;
+
+                // Текущие данные
+                const cur = json.current_weather;
+                const curTime = cur.time; // ISO-время, напр. "2025-05-30T15:00"
+                const idxNow  = times.indexOf(curTime);
+                const curHum  = idxNow >= 0 ? hums[idxNow] : null;
+
+                document.getElementById('current').innerText =
+                    `Сейчас: ${cur.temperature.toFixed(1)} °C, ` +
+                    `Влажность: ${curHum !== null ? curHum.toFixed(0) + '%' : '—'}`;
+
+                // Для масштаба гистограмм
+                const maxTemp = Math.max(...temps);
+                const maxHum  = Math.max(...hums);
+
+                // Температура
+                const tempChart = document.getElementById('temp-chart');
+                const tempHeader = document.createElement('h2');
+                tempHeader.innerText = 'Температура (°C)';
+                tempChart.appendChild(tempHeader);
+
+                times.forEach((t, i) => {
+                    const hour = t.slice(11,16);
+                    const wrap = document.createElement('div');
+                    wrap.className = 'bar-wrapper';
+
+                    const bar = document.createElement('div');
+                    bar.className = 'bar-temp';
+                    bar.style.height = (temps[i] / maxTemp * 200) + 'px';
+                    wrap.appendChild(bar);
+
+                    const lbl = document.createElement('div');
+                    lbl.className = 'data-label';
+                    lbl.innerText = temps[i].toFixed(1);
+                    wrap.appendChild(lbl);
+
+                    const xlbl = document.createElement('div');
+                    xlbl.className = 'axis-label';
+                    xlbl.innerText = hour;
+                    wrap.appendChild(xlbl);
+
+                    tempChart.appendChild(wrap);
+                });
+
+                // Влажность
+                const humChart = document.getElementById('hum-chart');
+                const humHeader = document.createElement('h2');
+                humHeader.innerText = 'Влажность (%)';
+                humChart.appendChild(humHeader);
+
+                times.forEach((t, i) => {
+                    const hour = t.slice(11,16);
+                    const wrap = document.createElement('div');
+                    wrap.className = 'bar-wrapper';
+
+                    const bar = document.createElement('div');
+                    bar.className = 'bar-hum';
+                    bar.style.height = (hums[i] / maxHum * 200) + 'px';
+                    wrap.appendChild(bar);
+
+                    const lbl = document.createElement('div');
+                    lbl.className = 'data-label';
+                    lbl.innerText = hums[i].toFixed(0);
+                    wrap.appendChild(lbl);
+
+                    const xlbl = document.createElement('div');
+                    xlbl.className = 'axis-label';
+                    xlbl.innerText = hour;
+                    wrap.appendChild(xlbl);
+
+                    humChart.appendChild(wrap);
+                });
+
+                document.querySelector('button').style.display = 'none';
+            })
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 7
+        <hr>
+    </header>
+
+    <main>
+        <button id="load-btn"
+            style="padding:8px 16px; font-size:16px; font-weight:bold; display:block; margin:20px auto;"
+            onclick="showHistogram()"> 
+            Показать гистограммы
+        </button>
+
+        <div id="current" class="current-values"></div>
+        <div id="temp-chart" class="chart-container"></div>
+        <div id="hum-chart" class="chart-container"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
