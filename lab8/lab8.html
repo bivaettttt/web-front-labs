@@ -84,47 +84,61 @@
                         <th>Удалить</th>
                     </tr>
                 </thead>
-                <tr v-for="(flower, id) in flowers">
-                    <td>
-                        <span v-if="flower === null">загружается...</span>
-                        <span v-else>{{ flower }}</span>
-                    </td>
-                    <td>
-                        <div>
-                            <button @click="edit(id, flower)" class="btn btn-warning btn-sm" v-if="flower !== null" style="margin-right: 10px">
-                                <i class="bi bi-pencil-fill text-light"></i>
+                <tbody>
+                    <tr v-for="(flower, id) in flowers">
+                        <td>
+                            <span v-if="flower === null">загружается...</span>
+                            <span v-else>{{ flower }}</span>
+                        </td>
+                        <td>
+                            <div>
+                                <button @click="edit(id, flower)" class="btn btn-warning btn-sm" v-if="flower !== null" style="margin-right: 10px">
+                                    <i class="bi bi-pencil-fill text-light"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <button @click="remove(id)" class="btn btn-warning btn-sm">
+                                <i class="bi bi-trash-fill text-light"></i>
                             </button>
-                        </div>
-                    </td>
-                    <td>
-                        <button @click="remove(id)" class="btn btn-warning btn-sm">
-                            <i class="bi bi-trash-fill text-light"></i>
-                        </button>
-                    </td>
-                </tr>
-                <button @click="addFlower" class="btn btn-warning btn-sm">
-                    <i class="bi bi-plus-lg text-light"></i> Добавить цветок
-                </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <button @click="addFlower" class="btn btn-warning btn-sm">
+                                <i class="bi bi-plus-lg text-light"></i> Добавить цветок
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
             <hr>
 
             <h2>Калькулятор</h2>
             <div class="row g-5">
+
                 <div class="col-auto">
                     <input type="number" v-model="a" class="form-control">
                 </div>
+
                 <div class="col-auto">
                     <i class="bi bi-plus-square-fill text-warning fs-3"></i>
                 </div>
+
                 <div class="col-auto">
                     <input type="number" v-model="b" class="form-control">
                 </div>
+
                 <div class="col-auto">
                     <button @click="sum" class="btn btn-warning text-light">=</button>
                 </div>
+
                 <div class="col-auto">
                     <span class="badge text-bg-warning fs-5">{{ result }}</span>
                 </div>
+                
             </div>
         </div>
     </main>
@@ -175,11 +189,12 @@
                     let name = prompt('Введите название нового цветка:');
                     if (!name) return;
                     // добавляем «загружающийся» слот
-                    const idx = this.flowers.length;
                     this.flowers.push(null);
+                    // определяем индекс только что добавленного элемента
+                    const idx = this.flowers.length - 1;
                     // имитируем задержку загрузки
                     setTimeout(() => {
-                        this.$set(this.flowers, idx, name);
+                         this.flowers[idx] = name;
                     }, 3000);
                 },
                 sum() {
