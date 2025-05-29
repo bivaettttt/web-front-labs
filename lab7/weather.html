@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Надршин Тимур Ринатович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png">
+    <link rel="shortcut icon" href="../favicon-16x16.png">
+    <style>
+        button {
+            font-size: 14pt;
+            padding: 10px;
+            width: 220px;
+            margin: 20px auto;
+            display: block;
+            background-color: darksalmon;
+            border: 1px solid brown;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        .weather-box {
+            border: 1px solid brown;
+            border-radius: 6px;
+            padding: 15px;
+            background: aqua;
+            width: 500px;
+        }
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        .weather-item span.time {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showTodayTemps() {
+            const today = new Date().toLocaleDateString('sv', { timeZone: 'Asia/Bangkok' }).split('T')[0];
+
+            const url = [
+                'https://api.open-meteo.com/v1/forecast',
+                '?latitude=55.0415',
+                '&longitude=82.9346',
+                '&hourly=temperature_2m',
+                '&timezone=Asia%2FBangkok',
+                `&start_date=${today}`,
+                `&end_date=${today}`
+            ].join('');
+
+            fetch(url)
+                .then(resp => resp.json())
+                .then(data => {
+                const times = data.hourly.time;            
+                const temps = data.hourly.temperature_2m;
+
+                const checkpoints = ['08:00','12:00','20:00'];
+
+                const results = checkpoints.map(ch => {
+                    const key = `${today}T${ch}`;
+                    const idx = times.indexOf(key);
+                    return {
+                    time: ch,
+                    temp: idx >= 0 ? temps[idx].toFixed(1) + '°C' : '—'
+                    };
+                });
+
+                const container = document.getElementById('weather');
+                let html = '<div class="weather-box">';
+                html += `<h3>Погода ${today}</h3>`;
+                results.forEach(item => {
+                    html += `
+                    <div class="weather-item">
+                        <span class="time">${item.time}</span>
+                        <span class="value">${item.temp}</span>
+                    </div>`;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+
+                document.getElementById('btn').style.display = 'none';
+                })
+            }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 7
+        <hr>
+    </header>
+
+    <main>
+        <button id="btn" onclick="showTodayTemps()">Показать температуру на сегодня</button>
+        <div id="weather"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Надршин Тимур Ринатович, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
