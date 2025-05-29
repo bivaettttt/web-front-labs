@@ -32,11 +32,22 @@
             <hr>
 
             <h2>Цветы</h2>
-            <ul>
-                <li v-for="(flower, id) in flowers">
-                    {{ flower }} <button @click="edit(id, flower)">?</button>
-                </li>
-            </ul>
+            <table class="table table-warning">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Редактировать</th>
+                    </tr>
+                </thead>
+                <tr v-for="(flower, id) in flowers">
+                    <td>
+                        {{ flower }} 
+                    </td>
+                    <td>
+                        <button @click="edit(id, flower)">?</button>
+                    </td>
+                </tr>
+            </table>
             <hr>
 
             <h2>Калькулятор</h2>
@@ -51,10 +62,10 @@
                     <input type="number" v-model="b" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <button @click="sum" class="btn btn-primary">=</button>
+                    <button @click="sum" class="btn btn-warning">=</button>
                 </div>
                 <div class="col-auto">
-                    <span class="badge text-bg-primary fs-5">{{ result }}</span>
+                    <span class="badge text-bg-warning fs-5">{{ result }}</span>
                 </div>
             </div>
         </div>
